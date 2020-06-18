@@ -1,0 +1,11 @@
+[all_webservers]
+vmwebserver-uli-1.mgt.depa.mx
+vmwebserver-uli-2.mgt.depa.mx
+vmwebserver-uli-3.mgt.depa.mx
+vmwebserver-uli-4.mgt.depa.mx
+vmwebserver-uli-5.mgt.depa.mx
+
+[pilot_host]
+vmwebserver-uli-1.mgt.depa.mx
+
+

@@ -1,0 +1,35 @@
+---
+- name: Install flask with pip
+  hosts: all
+  become: yes
+  remote_user: centos
+  tasks:
+  - name: Latest version of python
+    yum: name=python3 state=latest
+
+  - name: Install python3-pip
+    yum: name=python-pip state=latest
+    
+  - name: Latest version of flask
+    pip: name=flask
+  
+  - name: Create directory
+    file: path=/home/centos/flask_service state=directory owner=centos group=centos
+
+  - name: move app flask 
+    copy: src=appflask.py dest=/home/centos/flask_service
+
+  - name: move service file
+    copy: src=flaskapp.service dest=/lib/systemd/system/
+
+    # - name: reload daemon
+    # shell: systemctl daemon-reload
+
+  - name: running service flaskapp
+    systemd: name=flaskapp.service enabled=true state=started daemon_reload=yes
+
+  - name: add port
+    firewalld: port=8080/tcp permanent=yes state=enabled immediate=yes
+
+  - name: remove file
+    file: path=/home/centos/bin state=absent
